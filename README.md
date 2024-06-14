@@ -17,17 +17,19 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
 - Nhận các Query Params và tạo Query Builder bằng TypeORM.
 - Cấu trúc của Query Params: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/interfaces/query-param.interface.ts)
 
-  `export interface QueryParams {
+  ```bash
+  export interface QueryParams {`
       [key: string]: string | number | boolean | string[] | undefined | null;
       sortBy?: string;
       orderAsc?: string;
       pageNumber?: number;
       perPage?: number;
-  } `
+  } 
   
 - Trả về Query Response bao gồm list các record trả về, links cho pagination và metadata như sau [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/dto/query-response.dto.ts):
   
-  `export interface QueryResponse<T> {
+  ```bash
+  export interface QueryResponse<T> {
       data: T[],
       links: {
         self: string,
@@ -44,7 +46,7 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
         totalPage?: number;
         totalRecords?: number;
       },
-  }`
+  }
 
 - Ví dụ:
   + HTTP Method: POST
@@ -56,7 +58,8 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
     - Trang hiện tại: trang 2
     - Số record trên trang: 2
   + Response:
-    `{
+    ```bash
+        {
         "data": [
             {
                 "status": "ACTIVE",
@@ -97,7 +100,7 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
             "totalPages": 2,
             "totalRecords": 4
         }
-    }`
+    }
 
 
 ## License
