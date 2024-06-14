@@ -5,68 +5,100 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Xây dựng backend với Entity **Tenant**, phát triển **Module Tenant** và **Query Service** với chức năng **search**, **sort**, **order** bằng nhiều field khác nhau kèm **Pagination**.
 
-## Installation
+Rest API:
+- GET api/v1/tenant [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/tenant/tenant.controller.ts): Lấy list Tenant bằng Query params
+- POST api/v1/tenant [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/tenant/tenant.controller.ts): Tạo record cho entity Tenant
 
-```bash
-$ npm install
-```
+Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/query.service.ts)
+- Nhận các Query Params và tạo Query Builder bằng TypeORM.
+- Cấu trúc của Query Params: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/interfaces/query-param.interface.ts)
 
-## Running the app
+  `export interface QueryParams {
+      [key: string]: string | number | boolean | string[] | undefined | null;
+      sortBy?: string;
+      orderAsc?: string;
+      pageNumber?: number;
+      perPage?: number;
+  } `
+  
+- Trả về Query Response bao gồm list các record trả về, links cho pagination và metadata như sau [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/dto/query-response.dto.ts):
+  
+  `export interface QueryResponse<T> {
+      data: T[],
+      links: {
+        self: string,
+        first: string,
+        previous: string,
+        next: string,
+        last: string,
+      },
+      metadata: {
+        sortBy?: string;
+        orderAsc?: boolean;
+        pageNumber?: number;
+        perPage?: number;
+        totalPage?: number;
+        totalRecords?: number;
+      },
+  }`
 
-```bash
-# development
-$ npm run start
+- Ví dụ:
+  + HTTP Method: POST
+  + URL: api/v1/tenant?sortBy=subcriptionStartDate&orderAsc=false&pageNumber=2&perPage=2&email=.com&status=INACTIVE
+  + Mô tả: query list các record của entity Tenant.
+    - Search bằng email bao gồm chuỗi '.com' và status là `INACTIVE`.
+    - Sort bằng `subcriptionStartDate`
+    - Order bằng `DESC` (`orderAsc=false`)
+    - Trang hiện tại: trang 2
+    - Số record trên trang: 2
+  + Response:
+    `{
+        "data": [
+            {
+                "status": "ACTIVE",
+                "subcriptionStartDate": "2023-09-14T17:00:00.000Z",
+                "createdAt": "2024-06-14T03:22:11.242Z",
+                "lastModifiedAt": "2024-06-14T03:22:11.242Z",
+                "id": 3,
+                "email": "deny.dang@gmail.com",
+                "name": "Denny Dang",
+                "phone": "0789182812",
+                "subcriptionEndDate": "2025-09-14T17:00:00.000Z"
+            },
+            {
+                "status": "INACTIVE",
+                "subcriptionStartDate": "2022-01-31T17:00:00.000Z",
+                "createdAt": "2024-06-14T03:22:16.292Z",
+                "lastModifiedAt": "2024-06-14T05:04:30.055Z",
+                "id": 4,
+                "email": "nvdung@gmail.com",
+                "name": "Nguyen Van Dung",
+                "phone": "0789182812",
+                "subcriptionEndDate": "2024-04-30T17:00:00.000Z"
+            }
+        ],
+        "links": {
+            "self": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com",
+            "first": "pageNumber=1&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com",
+            "previous": "pageNumber=1&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com",
+            "next": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com",
+            "last": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com"
+        },
+        "metadata": {
+            "sortBy": "subcriptionStartDate",
+            "orderAsc": false,
+            "pageNumber": 2,
+            "perPage": 2,
+            "email": ".com",
+            "totalPages": 2,
+            "totalRecords": 4
+        }
+    }`
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
