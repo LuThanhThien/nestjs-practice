@@ -51,7 +51,7 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
 - Ví dụ:
   + **HTTP Method:** `POST`
   + **URL:** `api/v1/tenant?sortBy=subcriptionStartDate&orderAsc=false&pageNumber=1&perPage=2&email=.com&phone=812`
-  + ** Mô tả:** query list các record của entity `Tenant`.
+  + **Mô tả:** query list các record của entity `Tenant`.
     - **Search** bằng email bao gồm chuỗi `.com` và phone bao gồm `812`.
     - **Sort** bằng `subcriptionStartDate`
     - **Orde**r bằng `DESC` (`orderAsc=false`)
