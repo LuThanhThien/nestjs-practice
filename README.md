@@ -9,11 +9,11 @@
 
 Xây dựng backend với Entity **Tenant**, phát triển **Module Tenant** và **Query Service** với chức năng **search**, **sort**, **order** bằng nhiều field khác nhau kèm **Pagination**.
 
-Rest API:
-- `GET` `api/v1/tenant` [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/tenant/tenant.controller.ts): Lấy list `Tenant` bằng `Query Params`
-- `POST` `api/v1/tenant` [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/tenant/tenant.controller.ts): Tạo record cho entity `Tenant`
+**Rest API:**
+- **`GET` `api/v1/tenant`** [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/tenant/tenant.controller.ts): Lấy list `Tenant` bằng `Query Params`
+- **`POST` `api/v1/tenant`** [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/tenant/tenant.controller.ts): Tạo record cho entity `Tenant`
 
-Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/query.service.ts)
+**Query Service:** [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/query.service.ts)
 - Nhận các `Query Params` và tạo `Query Builder` bằng `TypeORM`.
 - Cấu trúc của Query Params: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/interfaces/query-param.interface.ts)
 
@@ -48,7 +48,7 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
       },
   }
 
-- Ví dụ:
+**Ví dụ:**
   + **HTTP Method:** `POST`
   + **URL:** `api/v1/tenant?sortBy=subcriptionStartDate&orderAsc=false&pageNumber=1&perPage=2&email=.com&phone=812`
   + **Mô tả:** query list các record của entity `Tenant`.
