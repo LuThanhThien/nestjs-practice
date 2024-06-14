@@ -17,8 +17,8 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
 - Nhận các Query Params và tạo Query Builder bằng TypeORM.
 - Cấu trúc của Query Params: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/interfaces/query-param.interface.ts)
 
-  ```bash
-  export interface QueryParams {`
+  ```typescript
+  export interface QueryParams {
       [key: string]: string | number | boolean | string[] | undefined | null;
       sortBy?: string;
       orderAsc?: string;
@@ -28,7 +28,7 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
   
 - Trả về Query Response bao gồm list các record trả về, links cho pagination và metadata như sau [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/src/modules/query/dto/query-response.dto.ts):
   
-  ```bash
+  ```typescript
   export interface QueryResponse<T> {
       data: T[],
       links: {
@@ -49,16 +49,16 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
   }
 
 - Ví dụ:
-  + HTTP Method: POST
-  + URL: api/v1/tenant?sortBy=subcriptionStartDate&orderAsc=false&pageNumber=2&perPage=2&email=.com&status=INACTIVE
-  + Mô tả: query list các record của entity Tenant.
-    - Search bằng email bao gồm chuỗi '.com' và status là `INACTIVE`.
+  + HTTP Method: `POST`
+  + URL: `api/v1/tenant?sortBy=subcriptionStartDate&orderAsc=false&pageNumber=2&perPage=2&email=.com&phone=812`
+  + Mô tả: query list các record của entity `Tenant`.
+    - Search bằng email bao gồm chuỗi `.com` và phone bao gồm `812`.
     - Sort bằng `subcriptionStartDate`
     - Order bằng `DESC` (`orderAsc=false`)
     - Trang hiện tại: trang 2
     - Số record trên trang: 2
   + Response:
-    ```bash
+    ```typescript
         {
         "data": [
             {
@@ -80,16 +80,16 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
                 "id": 4,
                 "email": "nvdung@gmail.com",
                 "name": "Nguyen Van Dung",
-                "phone": "0789182812",
+                "phone": "0789281212",
                 "subcriptionEndDate": "2024-04-30T17:00:00.000Z"
             }
         ],
         "links": {
-            "self": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com",
-            "first": "pageNumber=1&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com",
-            "previous": "pageNumber=1&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com",
-            "next": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com",
-            "last": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com"
+            "self": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812",
+            "first": "pageNumber=1&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812",
+            "previous": "pageNumber=1&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812",
+            "next": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812",
+            "last": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812"
         },
         "metadata": {
             "sortBy": "subcriptionStartDate",
