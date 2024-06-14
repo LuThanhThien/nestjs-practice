@@ -49,15 +49,15 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
   }
 
 - Ví dụ:
-  + HTTP Method: `POST`
-  + URL: `api/v1/tenant?sortBy=subcriptionStartDate&orderAsc=false&pageNumber=2&perPage=2&email=.com&phone=812`
-  + Mô tả: query list các record của entity `Tenant`.
-    - Search bằng email bao gồm chuỗi `.com` và phone bao gồm `812`.
-    - Sort bằng `subcriptionStartDate`
-    - Order bằng `DESC` (`orderAsc=false`)
-    - Trang hiện tại: trang 2
-    - Số record trên trang: 2
-  + Response:
+  + **HTTP Method:** `POST`
+  + **URL:** `api/v1/tenant?sortBy=subcriptionStartDate&orderAsc=false&pageNumber=1&perPage=2&email=.com&phone=812`
+  + ** Mô tả:** query list các record của entity `Tenant`.
+    - **Search** bằng email bao gồm chuỗi `.com` và phone bao gồm `812`.
+    - **Sort** bằng `subcriptionStartDate`
+    - **Orde**r bằng `DESC` (`orderAsc=false`)
+    - **Trang hiện tại:** 1
+    - **Số record trên trang:** 2
+  + **Response:**
     ```typescript
         {
         "data": [
@@ -85,7 +85,7 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
             }
         ],
         "links": {
-            "self": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812",
+            "self": "pageNumber=1&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812",
             "first": "pageNumber=1&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812",
             "previous": "pageNumber=1&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812",
             "next": "pageNumber=2&sortBy=subcriptionStartDate&orderAsc=false&perPage=2&email=.com&phone=812",
@@ -94,7 +94,7 @@ Query Service: [Link](https://github.com/LuThanhThien/nestjs-practice/blob/main/
         "metadata": {
             "sortBy": "subcriptionStartDate",
             "orderAsc": false,
-            "pageNumber": 2,
+            "pageNumber": 1,
             "perPage": 2,
             "email": ".com",
             "totalPages": 2,
