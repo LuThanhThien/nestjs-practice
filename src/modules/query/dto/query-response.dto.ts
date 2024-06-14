@@ -18,4 +18,6 @@ export interface QueryMeta {
     orderAsc?: string;
     pageNumber?: number;
     perPage?: number;
+    totalRecords?: number;
+    totalPages?: number;
 }

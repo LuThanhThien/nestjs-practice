@@ -31,6 +31,8 @@ export class QueryService<T> {
                 sortBy: this.params.sortBy,
                 pageNumber: +this.params.pageNumber,
                 perPage: +this.params.perPage,
+                totalPages: +Math.ceil((await this.builder.getCount())/this.params.perPage),
+                totalRecords: +(await this.builder.getCount())
             },
         }
     }

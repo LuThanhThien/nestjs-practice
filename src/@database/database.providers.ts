@@ -7,7 +7,7 @@ export const DatabaseProviders = [
       const dataSource = new DataSource({
         type: 'mysql',
         host: 'localhost',
-        port: 3306,
+        port: 4306,
         username: 'root',
         database: 'test',
         entities: [
